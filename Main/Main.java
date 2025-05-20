@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import KAMPPLAATS.CampSite;
 import PERSOON.Address;
+import PERSOON.Member;
 import PERSOON.Staff;
 
 public class Main {
@@ -84,9 +85,35 @@ public class Main {
 
                     break;
                 case 3:
-                
+                System.out.print("Firstnamr: ");
+                String firstName3 = scanner.nextLine();
+
+                System.out.print("Lastname: ");
+                String lastName3 = scanner.nextLine();
+
+                System.out.print("Date of birth (yyyy-mm-dd): ");
+                LocalDate DoB3 = LocalDate.parse(scanner.nextLine());
+
+                System.out.print("Street: ");
+                String street3 = scanner.nextLine();
+
+                System.out.print("House number: ");
+                int houseNumber3 = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Zipcode: ");
+                int zipCode3 = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("City: ");
+                String city3 = scanner.nextLine();
+
+                Address address3 = new Address(street3, houseNumber3, zipCode3, city3);
+                Member member3 = new Member(firstName3, lastName3, DoB3, address3);
+
+                System.out.println("New Member created");
+                System.out.println(member3);
                     break;
                 case 4: 
+                
                     break;
                 case 5: 
                     break;
