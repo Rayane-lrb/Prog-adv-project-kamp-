@@ -1,0 +1,84 @@
+
+1. Klasse Persoon
+
+- attributen: voornaam, achternaam, geboortedatum, adres (van type Adres 1.1)
+
+- Voorzien van getters en setters
+
+- toString() toevoegen
+
+
+1.1 Klasse Adres
+
+- attributen: straat, huisnummer, postcode, stad
+
+- Voorzien van getters en setters
+
+- toString() toevoegen
+
+
+1.3 Subklassen van Persoon
+
+- Klasse Lid (met leefgroep)
+
+- Klasse Personeelslid (algemeen)
+
+- Subklassen van Personeelslid: begeleider, keukenpersoneel, poetsploeg...
+
+
+1.4 Leefgroep
+
+- Definieren van leefgroepen (bv. "Tieners", "14+", "16+")
+
+- Zorgen dat een Lid correct in een leefgroep wordt ingedeeld (logica op basis van leeftijd)
+
+- Koppel begeleiders aan leefgroepen
+
+
+2. Klasse Kampplaats,
+
+- Attributen: adres (type Adres), capaciteit (max. aantal leden)
+
+- Faciliteiten toevoegen als unieke verzameling (geen dubbels!)
+
+- Getters, setters, toString()
+
+
+3. Klasse Kamp,
+
+- Attributen: titel, kampplaats, startdatum, einddatum
+
+- Lijst van personeelsleden
+
+- Lijst van leden
+
+- Methoden:
+
+- Toevoegen van personeel (met controle op dubbele inschrijving)
+
+- Toevoegen van lid (met controle op capaciteit)
+
+- Alle info van het kamp printen
+
+- Genereren van ledenlijst als bestand
+
+
+4. Applicatielogica (Main of Menu klasse),
+
+Keuzemenu bij opstart:
+
+- Menu tonen bij opstart met volgende keuzes:
+
+- Nieuwe personeelsleden aanmaken
+
+- Nieuwe kampplaats aanmaken
+
+- Nieuwe leden aanmaken
+
+- Nieuw kamp aanmaken
+
+- Personeel toewijzen aan kamp
+
+- Lid inschrijven in kamp
+
+- Print kampinfo naar tekstbestand

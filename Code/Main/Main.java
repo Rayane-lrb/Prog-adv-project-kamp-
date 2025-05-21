@@ -1,20 +1,34 @@
 package Main;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import KAMP.Camp;
 import KAMPPLAATS.CampSite;
 import PERSOON.Address;
+import PERSOON.LivingGroup.ages;
 import PERSOON.Member;
 import PERSOON.Staff;
+/**
+ * Hoofdklasse voor het Camp Management System.
+ * <p>
+ * Deze klasse bevat de main-methode die het console menu beheert
+ * waarmee gebruikers personeel, leden, kampplaatsen en kampen kunnen aanmaken,
+ * personeel en leden aan kampen kunnen toewijzen en kampgegevens kunnen exporteren.
+ * </p>
+ * 
+ * @author Laroub Rayane
+ * @version 2.0 2025-05-21
+ */
 
 public class Main {
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -22,6 +36,7 @@ public class Main {
         List<Member> memberList = new ArrayList<>();
         List<CampSite> campSites = new ArrayList<>();
         List<Camp> campList = new ArrayList<>(); 
+        Map<Member, ages> memberAgeGroupMap = new HashMap<>();
        
         while(running) {
             Header.appMenuHeader();
@@ -115,31 +130,60 @@ public class Main {
                     break;
                 case 3:
                 System.out.print("Firstname: ");
-                String firstName3 = scanner.nextLine();
+                    String firstName3 = scanner.nextLine();
+                    System.out.print("Lastname: ");
+                    String lastName3 = scanner.nextLine();
 
-                System.out.print("Lastname: ");
-                String lastName3 = scanner.nextLine();
+                    LocalDate dob3;
+                    while (true) {
+                        System.out.print("Date of birth (yyyy-mm-dd): ");
+                        try {
+                            dob3 = LocalDate.parse(scanner.nextLine());
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Invalid date format!");
+                        }
+                    }
 
-                System.out.print("Date of birth (yyyy-mm-dd): ");
-                LocalDate DoB3 = LocalDate.parse(scanner.nextLine());
+                    System.out.print("Street: ");
+                    String street3 = scanner.nextLine();
+                    System.out.print("House number: ");
+                    int houseNumber3 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Zipcode: ");
+                    int zipCode3 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("City: ");
+                    String city3 = scanner.nextLine();
 
-                System.out.print("Street: ");
-                String street3 = scanner.nextLine();
+                    System.out.println("Choose age group:");
+                    System.out.println("1. TEENS");
+                    System.out.println("2. FORTEEN_AND_UP");
+                    System.out.println("3. SIXTEEN_AND_UP");
+                    System.out.print("Choice: ");
+                    int ageChoice = Integer.parseInt(scanner.nextLine());
 
-                System.out.print("House number: ");
-                int houseNumber3 = Integer.parseInt(scanner.nextLine());
+                    ages ageGroup;
+                    switch (ageChoice) {
+                        case 1:
+                            ageGroup = ages.TEENS;
+                            break;
+                        case 2:
+                            ageGroup = ages.FORTEEN_AND_UP;
+                            break;
+                        case 3:
+                            ageGroup = ages.SIXTEEN_AND_UP;
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Defaulting to TEENS.");
+                            ageGroup = ages.TEENS;
+                    }
 
-                System.out.print("Zipcode: ");
-                int zipCode3 = Integer.parseInt(scanner.nextLine());
+                    Address address3 = new Address(street3, houseNumber3, zipCode3, city3);
+                    Member member = new Member(firstName3, lastName3, dob3, address3);
+                    memberList.add(member);
+                    memberAgeGroupMap.put(member, ageGroup);
 
-                System.out.print("City: ");
-                String city3 = scanner.nextLine();
-
-                Address address3 = new Address(street3, houseNumber3, zipCode3, city3);
-                Member member3 = new Member(firstName3, lastName3, DoB3, address3);
-                memberList.add(member3);
-                System.out.println("New Member created");
-                System.out.println(member3);
+                    System.out.println("New member created:");
+                    System.out.println(member);
                     break;
                 case 4: 
                 if(campSites.isEmpty()) {
@@ -188,7 +232,7 @@ public class Main {
                 }
                  CampSite selectedCampSite = campSites.get(campSiteChoice - 1);
 
-                Camp camp4 = new Camp(title4, selectedCampSite, to4, from4);
+                Camp camp4 = new Camp(title4, selectedCampSite, from4, to4);
                 campList.add(camp4);
                 System.out.println(camp4);
                     break;
@@ -238,38 +282,42 @@ public class Main {
                 if(campList.isEmpty()) {
                     System.out.println("No camps available, create a camp first.");
                     break;
-                }
+                } 
                 if(memberList.isEmpty()) {
                     System.out.print("No members available, create a member first");
                     break;
                 }
+
                     System.out.println("Available camps:");
-                for (int i = 0; i < campList.size(); i++) {
+                    for (int i = 0; i < campList.size(); i++) {
                     System.out.println((i + 1) + ". " + campList.get(i).getTitle());
                 }
                     System.out.print("Choose a camp (number): ");
                     int campIndex6 = Integer.parseInt(scanner.nextLine()) - 1;
-                    
+
                 if (campIndex6 < 0 || campIndex6 >= campList.size()) {
                     System.out.println("Invalid camp choice.");
                     break;
                 }
-                    Camp selectedCampForMember = campList.get(campIndex6);
+                Camp campForMember = campList.get(campIndex6);
 
                     System.out.println("Available members: ");
                 for(int i = 0; i < memberList.size(); i++) {
-                        System.out.println((i + 1) + "." + memberList.get(i));
-                    }
+                    System.out.println((i + 1) + "." + memberList.get(i));
+                }
+ 
                     System.out.print("Choose a member: ");
                     int memberIndex6 = Integer.parseInt(scanner.nextLine());
 
-                    if(memberIndex6 < 1 || memberIndex6 > memberList.size()) {
-                        System.out.println("Invalid member choice.");
-                    }
-                    Member selectedMember = memberList.get(memberIndex6 - 1);
-                    selectedCampForMember.addMember(selectedMember);
-                    System.out.println("New member registrated for a camp");
+                if(memberIndex6 < 1 || memberIndex6 > memberList.size()) {
+                    System.out.println("Invalid member choice.");
                     break;
+                }
+
+                    Member selectedMember = memberList.get(memberIndex6 - 1);
+                    campForMember.addMember(selectedMember);
+                      System.out.println("New member registered for the camp.");
+                      break;
                 case 7: 
                 if(campList.isEmpty()) {
                     System.out.println("No camps available, create a camp first.");
@@ -287,9 +335,22 @@ public class Main {
                     System.out.println("Invalid camp choice.");
                 }
                     Camp selectedCampToSave = campList.get(campIndex7);
-                try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("KampInfo_" + selectedCampToSave + ".dat"))) {
-                     output.writeObject(selectedCampToSave);
-                     System.out.println("File successfully exported to " + "KampInfo_" + selectedCampToSave + ".dat");
+
+                    String sanitizedTitle = selectedCampToSave.getTitle().replaceAll("[\\\\/:*?\"<>|]", "_");
+                     String filename = "KampInfo_" + sanitizedTitle.replaceAll("\\s+", "_") + ".txt";
+                try (PrintWriter writer = new PrintWriter(filename)) {
+                     writer.println("Camp Title: " + selectedCampToSave.getTitle());
+                     writer.println("Location: " + selectedCampToSave.getCampSite());
+                     writer.println("Date: " + selectedCampToSave.getFrom() + " to " + selectedCampToSave.getTo());
+                     writer.println("Staff: ");
+                for (Staff s : selectedCampToSave.getStaffsList()) {
+                     writer.println(" - " + s);
+                }
+                     writer.println("Members: ");
+                for (Member m : selectedCampToSave.getCampMembersList()) {
+                    writer.println(" - " + m);
+                }
+                     System.out.println("File successfully exported to " + "KampInfo_" + selectedCampToSave + ".txt");
                 } catch (IOException e) {
                     e.printStackTrace(); // Dit geeft meer details als het toch misloopt
                 }

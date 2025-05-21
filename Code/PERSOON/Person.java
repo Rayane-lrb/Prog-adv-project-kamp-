@@ -4,6 +4,14 @@ package PERSOON;
 
 import java.time.LocalDate;
 
+/**
+ * Deze klasse stelt een persoon voor met een voornaam, achternaam,
+ * geboortedatum en adres.
+ * Dit is een basis klasse om persoonlijke gegevens op te slaan.
+ * 
+ * @author Laroub Rayane
+ * @version 1.0 2025-05-16
+ */
 public class Person {
 
     private String firstName;
