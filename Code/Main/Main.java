@@ -28,7 +28,13 @@ import PERSOON.Staff;
  */
 
 public class Main {
-    
+     /**
+     * De main-methode en startpunt van het programma.
+     * <p>
+     * Bevat een consolegebaseerd menu waarmee de gebruiker:
+     * personeel, leden, kampplaatsen en kampen kan beheren.
+     * </p>
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -55,6 +61,13 @@ public class Main {
 
             switch(choice) {
                 case 1:
+                  /**
+                     * Case 1: Personeel aanmaken.
+                     * <p>
+                     * Vraagt gebruiker om naam, geboortedatum, adres en functie
+                     * en maakt een nieuw Staff-object aan dat wordt toegevoegd aan de lijst.
+                     * </p>
+                     */
                 System.out.print("Firstname: ");
                 String firstName = scanner.nextLine();
                 
@@ -95,6 +108,13 @@ public class Main {
                 System.out.println(staff);
                     break;
                 case 2: 
+                /**
+                     * Case 2: Kampplaats registreren.
+                     * <p>
+                     * Gebruiker voert adres, capaciteit en tot 3 faciliteiten in.
+                     * Er wordt een nieuw CampSite-object gemaakt en toegevoegd aan de lijst.
+                     * </p>
+                     */
                 System.out.print("Street: ");
                 String street2 = scanner.nextLine();
                 
@@ -129,6 +149,14 @@ public class Main {
 
                     break;
                 case 3:
+                /**
+                     * Case 3: Lid aanmaken.
+                     * <p>
+                     * Gebruiker voert naam, geboortedatum, adres en kiest een leeftijsgroep.
+                     * Er wordt een nieuw Member-object gemaakt en toegevoegd aan de lijst,
+                     * met bijbehorende leeftijdsgroep in een map.
+                     * </p>
+                     */
                 System.out.print("Firstname: ");
                     String firstName3 = scanner.nextLine();
                     System.out.print("Lastname: ");
@@ -186,6 +214,13 @@ public class Main {
                     System.out.println(member);
                     break;
                 case 4: 
+                /**
+                     * Case 4: Kamp creëren.
+                     * <p>
+                     * Gebruiker voert titel, begin- en einddatum in en kiest een beschikbare kampplaats.
+                     * Er wordt een nieuw Camp-object gemaakt en toegevoegd aan de lijst.
+                     * </p>
+                     */
                 if(campSites.isEmpty()) {
                     System.out.println("No camp sites available, create a camp site first");
                     break;
@@ -237,6 +272,13 @@ public class Main {
                 System.out.println(camp4);
                     break;
                 case 5:
+                 /**
+                     * Case 5: Personeel toewijzen aan kamp.
+                     * <p>
+                     * Toont beschikbare kampen en personeel,
+                     * waarna gebruiker personeel kan koppelen aan een kamp.
+                     * </p>
+                     */
                 if (campList.isEmpty()) {
                    System.out.println("No camps available. Create a camp first.");
                     break;
@@ -279,6 +321,13 @@ public class Main {
                     System.out.println("Staff member assigned to camp.");
                     break;
                 case 6: 
+                /**
+                     * Case 6: Lid registreren voor kamp.
+                     * <p>
+                     * Toont beschikbare kampen en leden,
+                     * waarna gebruiker een lid kan koppelen aan een kamp.
+                     * </p>
+                     */
                 if(campList.isEmpty()) {
                     System.out.println("No camps available, create a camp first.");
                     break;
@@ -319,6 +368,14 @@ public class Main {
                       System.out.println("New member registered for the camp.");
                       break;
                 case 7: 
+                /**
+                 * Case 7: Kampgegevens exporteren naar tekstbestand.
+                 * <p>
+                 * Exporteert alle kampen inclusief hun leden en personeel naar een
+                 * tekstbestand. De bestandsnaam wordt uit de titel van de kampsessie.
+                 * Bij fouten wordt een foutmelding weergegeven.
+                 * </p>
+                 */
                 if(campList.isEmpty()) {
                     System.out.println("No camps available, create a camp first.");
                     break;
@@ -358,6 +415,12 @@ public class Main {
                     System.out.println("File succesfully exported");
                     break;
                 case 8: 
+                /**
+                 * Case 8: Applicatie afsluiten.
+                 * <p>
+                 * Beëindigt de applicatie en sluit de scanner af.
+                 * </p>
+                 */ 
                     running = false;
                     System.out.println("Thank you for using Camp Management System.");
                     break;
